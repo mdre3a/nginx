@@ -207,6 +207,7 @@ typedef struct {
     ngx_flag_t                       socket_keepalive;
     size_t                           socket_rcvbuf;
     size_t                           socket_sndbuf;
+    ngx_http_complex_value_t        *socket_mark;
 
 #if (NGX_HTTP_CACHE)
     ngx_shm_zone_t                  *cache_zone;
