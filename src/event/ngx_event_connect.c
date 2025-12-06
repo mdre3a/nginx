@@ -85,6 +85,28 @@ ngx_event_connect_peer(ngx_peer_connection_t *pc)
         }
     }
 
+    if (pc->mark) {
+#if (NGX_LINUX)
+        if (setsockopt(s, SOL_SOCKET, SO_MARK,
+                       (const void *) &pc->mark, sizeof(int))
+            == -1)
+        {
+            if (ngx_socket_errno == NGX_EPERM || ngx_socket_errno == NGX_EACCES) {
+                ngx_log_error(NGX_LOG_CRIT, pc->log, ngx_socket_errno,
+                              "setsockopt(SO_MARK) failed: "
+                              "process likely lacks CAP_NET_ADMIN capability");
+            } else {
+                ngx_log_error(NGX_LOG_ALERT, pc->log, ngx_socket_errno,
+                              "setsockopt(SO_MARK) failed");
+            }
+            goto failed;
+        }
+#else
+        ngx_log_error(NGX_LOG_WARN, pc->log, 0,
+                      "SO_MARK is not supported on this platform, ignored");
+#endif
+    }
+
     if (ngx_nonblocking(s) == -1) {
         ngx_log_error(NGX_LOG_ALERT, pc->log, ngx_socket_errno,
                       ngx_nonblocking_n " failed");
