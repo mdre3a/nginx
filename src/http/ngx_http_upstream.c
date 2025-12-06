@@ -674,6 +674,23 @@ ngx_http_upstream_init_request(ngx_http_request_t *r)
         u->peer.so_keepalive = 1;
     }
 
+    if (u->conf->socket_mark) {
+        ngx_str_t  val;
+
+        if (ngx_http_complex_value(r, u->conf->socket_mark, &val) != NGX_OK) {
+            ngx_http_finalize_request(r, NGX_HTTP_INTERNAL_SERVER_ERROR);
+            return;
+        }
+
+        if (val.len) {
+            ngx_int_t  mark = ngx_atoi(val.data, val.len);
+
+            if (mark != NGX_ERROR) {
+                u->peer.mark = mark;
+            }
+        }
+    }
+
     clcf = ngx_http_get_module_loc_conf(r, ngx_http_core_module);
 
     u->output.alignment = clcf->directio_alignment;

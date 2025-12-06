@@ -65,6 +65,8 @@ struct ngx_peer_connection_s {
     unsigned                         so_keepalive:1;
     unsigned                         down:1;
 
+    ngx_uint_t                       mark;
+
                                      /* ngx_connection_log_error_e */
     unsigned                         log_error:2;
 
