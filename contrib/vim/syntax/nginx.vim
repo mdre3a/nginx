@@ -469,6 +469,7 @@ syn keyword ngxDirective contained proxy_set_body
 syn keyword ngxDirective contained proxy_set_header
 syn keyword ngxDirective contained proxy_smtp_auth
 syn keyword ngxDirective contained proxy_socket_keepalive
+syn keyword ngxDirective contained proxy_socket_mark
 syn keyword ngxDirective contained proxy_ssl
 syn keyword ngxDirective contained proxy_ssl_certificate
 syn keyword ngxDirective contained proxy_ssl_certificate_key
