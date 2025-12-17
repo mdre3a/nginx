@@ -11,7 +11,8 @@
 
 #define nginx_version      1029004
 #define NGINX_VERSION      "1.29.4"
-#define NGINX_VER          "nginx/" NGINX_VERSION
+#define NGINX_VER_CUSTOM   " special version SOMARK supported by mdre3a"
+#define NGINX_VER          "nginx/" NGINX_VERSION NGINX_VER_CUSTOM
 
 #ifdef NGX_BUILD
 #define NGINX_VER_BUILD    NGINX_VER " (" NGX_BUILD ")"
